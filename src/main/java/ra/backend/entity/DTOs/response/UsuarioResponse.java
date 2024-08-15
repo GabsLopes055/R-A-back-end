@@ -1,7 +1,8 @@
 package ra.backend.entity.DTOs.response;
 
 import ra.backend.entity.UsuarioEntity;
-import ra.backend.entity.enums.USUARIO_ENUM;
+import ra.backend.entity.enums.Role;
+import ra.backend.entity.enums.StatusUser;
 
 public class UsuarioResponse {
 
@@ -13,11 +14,10 @@ public class UsuarioResponse {
 
     private String password;
 
-    private USUARIO_ENUM statusUsuario;
+    private StatusUser statusUsuario;
 
+    private Role permissao;
 
-
-    private String permissao;
 
     public UsuarioResponse toEntity(UsuarioEntity usuarioEntity) {
         return new UsuarioResponse(
@@ -25,12 +25,12 @@ public class UsuarioResponse {
                 usuarioEntity.getNomeCompleto(),
                 usuarioEntity.getEmail(),
                 usuarioEntity.getPassword(),
-                usuarioEntity.getStatusUsuario(),
-                usuarioEntity.getPermissao()
+                usuarioEntity.getStatus(),
+                usuarioEntity.getRole()
         );
     }
 
-    public UsuarioResponse(String userId, String nomeCompleto, String email, String password, USUARIO_ENUM statusUsuario, String permissao) {
+    public UsuarioResponse(String userId, String nomeCompleto, String email, String password, StatusUser statusUsuario, Role permissao) {
         this.userId = userId;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
@@ -74,11 +74,19 @@ public class UsuarioResponse {
         this.password = password;
     }
 
-    public String getPermissao() {
+    public StatusUser getStatusUsuario() {
+        return statusUsuario;
+    }
+
+    public void setStatusUsuario(StatusUser statusUsuario) {
+        this.statusUsuario = statusUsuario;
+    }
+
+    public Role getPermissao() {
         return permissao;
     }
 
-    public void setPermissao(String permissao) {
+    public void setPermissao(Role permissao) {
         this.permissao = permissao;
     }
 }

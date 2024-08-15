@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ra.backend.controllers.exceptions.exemploExeception.ExcecaoExemplo;
-import ra.backend.services.exceptions.EmailJaCadastrado;
+import ra.backend.services.exceptions.EmailJaCadastradoService;
 
 import java.time.Instant;
 
 @ControllerAdvice
-public class EmailJaExisteCadastrado extends ResponseEntityExceptionHandler {
+public class EmailJaExisteCadastradoController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(EmailJaCadastrado.class)
-    public ResponseEntity<ExcecaoExemplo> usuarioCadastradoException(EmailJaCadastrado exception, HttpServletRequest request) {
+    @ExceptionHandler(EmailJaCadastradoService.class)
+    public ResponseEntity<ExcecaoExemplo> usuarioCadastradoException(EmailJaCadastradoService exception, HttpServletRequest request) {
 
         ExcecaoExemplo excecaoExemplo = new ExcecaoExemplo();
 

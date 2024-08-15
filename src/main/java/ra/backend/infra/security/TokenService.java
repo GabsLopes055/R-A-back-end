@@ -31,13 +31,13 @@ public class TokenService {
     }
 
     private String gerarToken(String usuario) {
-        return JWT.create().withIssuer("g-service-backEnd").withSubject(usuario).withExpiresAt(this.generateExpirationDate()).sign(algorithm);
+        return JWT.create().withIssuer("ra-backEnd").withSubject(usuario).withExpiresAt(this.generateExpirationDate()).sign(algorithm);
     }
 
     public String validarToken(String token) {
         try {
 
-            return JWT.require(algorithm).withIssuer("g-service-backEnd").build().verify(token).getSubject();
+            return JWT.require(algorithm).withIssuer("ra-backEnd").build().verify(token).getSubject();
 
         } catch (JWTVerificationException exception) {
             return null;

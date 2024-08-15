@@ -1,7 +1,5 @@
 package ra.backend.infra.security;
 
-import com.g_service.back_end.domain.entities.Usuario;
-import com.g_service.back_end.domain.repositories.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ra.backend.entity.UsuarioEntity;
+import ra.backend.repository.UsuarioRepository;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String usuario = tokenService.validarToken(token);
 
         if (usuario != null) {
-            Usuario user = userRepository.findByUsuario(usuario).orElseThrow(() -> new RuntimeException("Usuário não encontrado (METODO: doFilterInternal)"));
+            UsuarioEntity user = userRepository.findByEmail(usuario).orElseThrow(() -> new RuntimeException("Usuário não encontrado (METODO: doFilterInternal)"));
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);

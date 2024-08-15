@@ -1,6 +1,6 @@
 package ra.backend.entity.enums;
 
-public enum USUARIO_ENUM {
+public enum StatusUser {
     ATIVO,
     INATIVO
 }

@@ -1,10 +1,9 @@
 package ra.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import ra.backend.entity.enums.USUARIO_ENUM;
+import jakarta.persistence.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import ra.backend.entity.enums.Role;
+import ra.backend.entity.enums.StatusUser;
 
 @Entity
 public class UsuarioEntity {
@@ -19,19 +18,21 @@ public class UsuarioEntity {
 
     private String password;
 
-    private USUARIO_ENUM StatusUsuario;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    private String permissao;
+    @Enumerated(EnumType.STRING)
+    private StatusUser status = StatusUser.INATIVO;
 
     public UsuarioEntity() {
     }
 
-    public UsuarioEntity(String nomeCompleto, String email, String password, USUARIO_ENUM statusUsuario, String permissao) {
+    public UsuarioEntity(String nomeCompleto, String email, String password, StatusUser statusUsuario, Role permissao) {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.password = password;
-        this.StatusUsuario = statusUsuario;
-        this.permissao = permissao;
+        this.status = statusUsuario;
+        this.role = permissao;
     }
 
     public String getUserId() {
@@ -66,19 +67,19 @@ public class UsuarioEntity {
         this.password = password;
     }
 
-    public USUARIO_ENUM getStatusUsuario() {
-        return StatusUsuario;
+    public Role getRole() {
+        return role;
     }
 
-    public void setStatusUsuario(USUARIO_ENUM statusUsuario) {
-        StatusUsuario = statusUsuario;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public String getPermissao() {
-        return permissao;
+    public StatusUser getStatus() {
+        return status;
     }
 
-    public void setPermissao(String permissao) {
-        this.permissao = permissao;
+    public void setStatus(StatusUser status) {
+        this.status = status;
     }
 }

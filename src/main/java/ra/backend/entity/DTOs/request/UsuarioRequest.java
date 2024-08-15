@@ -1,6 +1,7 @@
 package ra.backend.entity.DTOs.request;
 
-import ra.backend.entity.enums.USUARIO_ENUM;
+import ra.backend.entity.enums.Role;
+import ra.backend.entity.enums.StatusUser;
 
 public class UsuarioRequest {
 
@@ -10,11 +11,11 @@ public class UsuarioRequest {
 
     private String password;
 
-    private USUARIO_ENUM statusUsuario;
+    private StatusUser statusUsuario;
 
-    private String permissao;
+    private Role permissao;
 
-    public UsuarioRequest(String nomeCompleto, String email, String password, USUARIO_ENUM statusUsuario, String permissao) {
+    public UsuarioRequest(String nomeCompleto, String email, String password, StatusUser statusUsuario, Role permissao) {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.password = password;
@@ -49,19 +50,19 @@ public class UsuarioRequest {
         this.password = password;
     }
 
-    public USUARIO_ENUM getStatusUsuario() {
+    public StatusUser getStatusUsuario() {
         return statusUsuario;
     }
 
-    public void setStatusUsuario(USUARIO_ENUM statusUsuario) {
+    public void setStatusUsuario(StatusUser statusUsuario) {
         this.statusUsuario = statusUsuario;
     }
 
-    public String getPermissao() {
+    public Role getPermissao() {
         return permissao;
     }
 
-    public void setPermissao(String permissao) {
+    public void setPermissao(Role permissao) {
         this.permissao = permissao;
     }
 }
