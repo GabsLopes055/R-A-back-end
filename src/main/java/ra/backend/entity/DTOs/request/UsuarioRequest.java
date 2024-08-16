@@ -11,9 +11,9 @@ public class UsuarioRequest {
 
     private String password;
 
-    private StatusUser statusUsuario;
+    private StatusUser statusUsuario = StatusUser.INATIVO;
 
-    private Role permissao;
+    private Role permissao = Role.USER;
 
     public UsuarioRequest(String nomeCompleto, String email, String password, StatusUser statusUsuario, Role permissao) {
         this.nomeCompleto = nomeCompleto;
