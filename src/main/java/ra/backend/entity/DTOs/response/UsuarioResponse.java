@@ -12,8 +12,6 @@ public class UsuarioResponse {
 
     private String email;
 
-    private String password;
-
     private StatusUser statusUsuario;
 
     private Role permissao;
@@ -24,17 +22,15 @@ public class UsuarioResponse {
                 usuarioEntity.getUserId(),
                 usuarioEntity.getNomeCompleto(),
                 usuarioEntity.getEmail(),
-                usuarioEntity.getPassword(),
                 usuarioEntity.getStatus(),
                 usuarioEntity.getRole()
         );
     }
 
-    public UsuarioResponse(String userId, String nomeCompleto, String email, String password, StatusUser statusUsuario, Role permissao) {
+    public UsuarioResponse(String userId, String nomeCompleto, String email, StatusUser statusUsuario, Role permissao) {
         this.userId = userId;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
-        this.password = password;
         this.statusUsuario = statusUsuario;
         this.permissao = permissao;
     }
@@ -66,13 +62,6 @@ public class UsuarioResponse {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public StatusUser getStatusUsuario() {
         return statusUsuario;
