@@ -1,16 +1,16 @@
 package ra.backend.services.Impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ra.backend.entity.DTOs.request.FiltroUsuarioRequest;
 import ra.backend.entity.DTOs.request.UsuarioRequest;
 import ra.backend.entity.DTOs.response.UsuarioResponse;
 import ra.backend.entity.UsuarioEntity;
 import ra.backend.repository.UsuarioRepository;
 import ra.backend.services.UsuarioService;
-import ra.backend.services.exceptions.EmailJaCadastradoService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -23,19 +23,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     @Override
-    public List<UsuarioResponse> listarTodos() {
+    public Page<UsuarioEntity> listarTodos(FiltroUsuarioRequest request, Pageable pageable) {
 
-        List<UsuarioEntity> listaUsuarioEntities;
+        Page<UsuarioEntity> listaUsuarioEntities;
 
-        listaUsuarioEntities = repository.findAll();
+        listaUsuarioEntities = repository.listarPorFiltro(request, pageable);
 
-        List<UsuarioResponse> response = new ArrayList<>();
-
-        for(UsuarioEntity retornar : listaUsuarioEntities) {
-            response.add(new UsuarioResponse().toEntity(retornar));
-        }
-
-        return response;
+//        List<UsuarioResponse> response = new ArrayList<>();
+//
+//        for(List<UsuarioResponse> retornar : listaUsuarioEntities) {
+//            response.add(new UsuarioResponse().toEntity((UsuarioEntity) retornar));
+//        }
+        return listaUsuarioEntities;
+//        return (Page<UsuarioResponse>) response;
 
     }
 
