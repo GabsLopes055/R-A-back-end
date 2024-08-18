@@ -3,6 +3,10 @@ package ra.backend.entity.DTOs.response;
 import ra.backend.entity.UsuarioEntity;
 import ra.backend.entity.enums.Role;
 import ra.backend.entity.enums.StatusUser;
+import ra.backend.repository.UsuarioRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UsuarioResponse {
 
@@ -17,7 +21,7 @@ public class UsuarioResponse {
     private Role permissao;
 
 
-    public UsuarioResponse toEntity(UsuarioEntity usuarioEntity) {
+    public static UsuarioResponse toEntity(UsuarioEntity usuarioEntity) {
         return new UsuarioResponse(
                 usuarioEntity.getUserId(),
                 usuarioEntity.getNomeCompleto(),
@@ -25,6 +29,10 @@ public class UsuarioResponse {
                 usuarioEntity.getStatus(),
                 usuarioEntity.getRole()
         );
+    }
+
+    public static List<UsuarioResponse> toListResponse(List<UsuarioEntity> listEntity) {
+        return listEntity.stream().map(UsuarioResponse::toEntity).collect(Collectors.toList());
     }
 
     public UsuarioResponse(String userId, String nomeCompleto, String email, StatusUser statusUsuario, Role permissao) {

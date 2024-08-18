@@ -1,6 +1,7 @@
 package ra.backend.services.Impl;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ra.backend.entity.DTOs.request.FiltroUsuarioRequest;
@@ -10,6 +11,7 @@ import ra.backend.entity.UsuarioEntity;
 import ra.backend.repository.UsuarioRepository;
 import ra.backend.services.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,19 +25,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     @Override
-    public Page<UsuarioEntity> listarTodos(FiltroUsuarioRequest request, Pageable pageable) {
+    public Page<UsuarioResponse> listarTodos(FiltroUsuarioRequest request, Pageable pageable) {
 
-        Page<UsuarioEntity> listaUsuarioEntities;
+        Page<UsuarioEntity> listaUsuarioEntities = repository.listarPorFiltro(request, pageable);
 
-        listaUsuarioEntities = repository.listarPorFiltro(request, pageable);
+        List<UsuarioResponse> responseDTO = UsuarioResponse.toListResponse(listaUsuarioEntities.getContent());
 
-//        List<UsuarioResponse> response = new ArrayList<>();
-//
-//        for(List<UsuarioResponse> retornar : listaUsuarioEntities) {
-//            response.add(new UsuarioResponse().toEntity((UsuarioEntity) retornar));
-//        }
-        return listaUsuarioEntities;
-//        return (Page<UsuarioResponse>) response;
+        return new PageImpl<>(responseDTO, pageable, listaUsuarioEntities.getTotalElements());
 
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public interface UsuarioController {
 
-    @GetMapping
-    Page<UsuarioEntity> listarTodos(@RequestBody FiltroUsuarioRequest request);
+    @PostMapping(value = "/listar-filtros")
+    Page<UsuarioResponse> listarTodos(@RequestBody FiltroUsuarioRequest request);
 
 }

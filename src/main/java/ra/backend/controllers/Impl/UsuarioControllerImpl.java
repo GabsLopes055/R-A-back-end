@@ -21,7 +21,7 @@ public class UsuarioControllerImpl implements UsuarioController {
     private UsuarioService service;
 
     @Override
-    public Page<UsuarioEntity> listarTodos(FiltroUsuarioRequest request) {
+    public Page<UsuarioResponse> listarTodos(FiltroUsuarioRequest request) {
 
         Pageable pageable = PageRequest.of(request.getPagina() != null ? request.getPagina() : 0, request.getTamanhoPagina() != null ? request.getTamanhoPagina() : 10);
 

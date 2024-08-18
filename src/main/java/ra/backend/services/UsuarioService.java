@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface UsuarioService {
 
-    Page<UsuarioEntity> listarTodos(FiltroUsuarioRequest request, Pageable pageable);
+    Page<UsuarioResponse> listarTodos(FiltroUsuarioRequest request, Pageable pageable);
 
     void deletarUsuario(String idUsuario);
 
