@@ -7,7 +7,6 @@ import ra.backend.entity.DTOs.request.UsuarioRequest;
 import ra.backend.entity.DTOs.response.AuthenticationResponse;
 import ra.backend.entity.DTOs.response.UsuarioResponse;
 import ra.backend.entity.UsuarioEntity;
-import ra.backend.entity.enums.Role;
 import ra.backend.entity.enums.StatusUser;
 import ra.backend.infra.security.TokenService;
 import ra.backend.repository.UsuarioRepository;
@@ -15,7 +14,7 @@ import ra.backend.services.AuthenticationService;
 import ra.backend.services.exceptions.EmailJaCadastradoService;
 import ra.backend.services.exceptions.SenhaIncorretaService;
 import ra.backend.services.exceptions.UsuarioInativoService;
-import ra.backend.services.exceptions.UsuarioNaoEncontradoService;
+import ra.backend.services.exceptions.EntityNaoEncontrada;
 
 import java.util.Optional;
 
@@ -35,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponse login(AuthenticationRequest request) {
 
-        UsuarioEntity user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new UsuarioNaoEncontradoService("Usuário não encontrado"));
+        UsuarioEntity user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new EntityNaoEncontrada("Usuário não encontrado"));
 
         AuthenticationResponse response = new AuthenticationResponse();
 

@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ra.backend.controllers.exceptions.exemploExeception.ExcecaoExemplo;
-import ra.backend.services.exceptions.UsuarioNaoEncontradoService;
+import ra.backend.services.exceptions.EntityNaoEncontrada;
 
 import java.time.Instant;
 
 @ControllerAdvice
 public class UsuarioNaoEncontradoController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UsuarioNaoEncontradoService.class)
-    public ResponseEntity<ExcecaoExemplo> usuarioNaoEncontradoException(UsuarioNaoEncontradoService exception, HttpServletRequest request) {
+    @ExceptionHandler(EntityNaoEncontrada.class)
+    public ResponseEntity<ExcecaoExemplo> usuarioNaoEncontradoException(EntityNaoEncontrada exception, HttpServletRequest request) {
 
         ExcecaoExemplo excecaoExemplo = new ExcecaoExemplo();
 
