@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.UsuarioController;
 import ra.backend.entity.DTOs.request.FiltroUsuarioRequest;
@@ -26,5 +29,14 @@ public class UsuarioControllerImpl implements UsuarioController {
         Pageable pageable = PageRequest.of(request.getPagina() != null ? request.getPagina() : 0, request.getTamanhoPagina() != null ? request.getTamanhoPagina() : 10);
 
         return service.listarTodos(request, pageable);
+    }
+
+    @Override
+    public ResponseEntity<UsuarioResponse> cadastrar(UsuarioRequest request) {
+
+        UsuarioResponse response = service.cadastrar(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
 }

@@ -13,6 +13,8 @@ public interface UsuarioService {
 
     Page<UsuarioResponse> listarTodos(FiltroUsuarioRequest request, Pageable pageable);
 
+    UsuarioResponse cadastrar(UsuarioRequest request);
+
     void deletarUsuario(String idUsuario);
 
     UsuarioResponse editarUsuario(String idUsuario, UsuarioRequest usuarioRequest);
