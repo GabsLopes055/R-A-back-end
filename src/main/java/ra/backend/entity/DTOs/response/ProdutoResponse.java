@@ -1,13 +1,10 @@
-package ra.backend.entity;
+package ra.backend.entity.DTOs.response;
 
-import jakarta.persistence.*;
+import ra.backend.entity.CategoriaEntity;
+import ra.backend.entity.ProdutosEntity;
 
-@Entity
-@Table(name = "tbl_produtos")
-public class ProdutosEntity {
+public class ProdutoResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String idProduto;
 
     private String nomeProduto;
@@ -18,21 +15,34 @@ public class ProdutosEntity {
 
     private Integer quantidade;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
 
-
-    public ProdutosEntity() {
+    public ProdutoResponse() {
     }
 
-    public ProdutosEntity(String idProduto, String nomeProduto, Double precoVenda, Double precoCompra, Integer quantidade, CategoriaEntity categoria) {
+    public static ProdutoResponse toEntity(ProdutosEntity entity) {
+        ProdutoResponse response = new ProdutoResponse();
+
+        response.setIdProduto(entity.getIdProduto());
+        response.setNomeProduto(entity.getNomeProduto());
+        response.setPrecoCompra(entity.getPrecoCompra());
+        response.setPrecoVenda(entity.getPrecoVenda());
+        response.setQuantidade(entity.getQuantidade());
+
+        return response;
+    }
+
+    public ProdutoResponse(String idProduto, String nomeProduto, Double precoVenda, Double precoCompra, Integer quantidade, CategoriaEntity categoria) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.precoVenda = precoVenda;
         this.precoCompra = precoCompra;
         this.quantidade = quantidade;
         this.categoria = categoria;
+    }
+
+    public static ProdutoResponse toResponseDTO(ProdutosEntity produtoSalvo) {
+        return new ProdutoResponse(produtoSalvo.getIdProduto(), produtoSalvo.getNomeProduto(), produtoSalvo.getPrecoVenda(), produtoSalvo.getPrecoCompra(), produtoSalvo.getQuantidade(), produtoSalvo.getCategoria());
     }
 
     public String getIdProduto() {
@@ -81,17 +91,5 @@ public class ProdutosEntity {
 
     public void setCategoria(CategoriaEntity categoria) {
         this.categoria = categoria;
-    }
-
-    @Override
-    public String toString() {
-        return "ProdutosEntity{" +
-                "idProduto='" + idProduto + '\'' +
-                ", nomeProduto='" + nomeProduto + '\'' +
-                ", precoVenda=" + precoVenda +
-                ", precoCompra=" + precoCompra +
-                ", quantidade=" + quantidade +
-                ", categoria=" + categoria +
-                '}';
     }
 }

@@ -1,18 +1,15 @@
-package ra.backend.entity.DTOs.response;
+package ra.backend.entity.DTOs.request;
 
-import ra.backend.entity.CategoriaEntity;
-
-public class CategoriaBolsasResponse {
+public class CategoriaRequest {
 
     private String idCategoria;
 
     private String nomeCategoria;
 
-    public static CategoriaBolsasResponse toEntity(CategoriaEntity entity) {
-        return new CategoriaBolsasResponse(entity.getIdCategoria(), entity.getNomeCategoria());
+    public CategoriaRequest() {
     }
 
-    public CategoriaBolsasResponse(String idCategoria, String nomeCategoria) {
+    public CategoriaRequest(String idCategoria, String nomeCategoria) {
         this.idCategoria = idCategoria;
         this.nomeCategoria = nomeCategoria;
     }

@@ -1,16 +1,19 @@
 package ra.backend.services;
 
-import ra.backend.entity.DTOs.request.CategoriaBolsasRequest;
-import ra.backend.entity.DTOs.response.CategoriaBolsasResponse;
+import ra.backend.entity.DTOs.request.CategoriaRequest;
+import ra.backend.entity.DTOs.response.CategoriaResponse;
+import ra.backend.entity.DTOs.response.ProdutoResponse;
 
 import java.util.List;
 
 public interface CategoriaService {
 
-    CategoriaBolsasResponse cadastrar(CategoriaBolsasRequest request);
+    CategoriaResponse cadastrar(CategoriaRequest request);
 
-    List<CategoriaBolsasResponse> listarTodasCategorias();
+    List<CategoriaResponse> listarTodasCategorias();
 
-    CategoriaBolsasResponse editarCategoriaBolsas(String idCategoria, CategoriaBolsasRequest request);
+    List<ProdutoResponse> listarProdutosPorCategoria(String idCategoria);
+
+    CategoriaResponse editarCategoriaBolsas(String idCategoria, CategoriaRequest request);
 
 }

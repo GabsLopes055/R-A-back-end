@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.CategoriaController;
-import ra.backend.entity.DTOs.request.CategoriaBolsasRequest;
-import ra.backend.entity.DTOs.response.CategoriaBolsasResponse;
+import ra.backend.entity.DTOs.request.CategoriaRequest;
+import ra.backend.entity.DTOs.response.CategoriaResponse;
+import ra.backend.entity.DTOs.response.ProdutoResponse;
 import ra.backend.services.CategoriaService;
 
 import java.util.List;
@@ -20,19 +21,24 @@ public class CategoriaControllerImpl implements CategoriaController {
     }
 
     @Override
-    public ResponseEntity<CategoriaBolsasResponse> cadastrar(CategoriaBolsasRequest request) {
+    public ResponseEntity<CategoriaResponse> cadastrar(CategoriaRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(request));
 
     }
 
     @Override
-    public ResponseEntity<List<CategoriaBolsasResponse>> listarTodas() {
+    public ResponseEntity<List<CategoriaResponse>> listarTodas() {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarTodasCategorias());
     }
 
     @Override
-    public ResponseEntity<CategoriaBolsasResponse> editarCategoria(String idCategoria, CategoriaBolsasRequest request) {
+    public ResponseEntity<CategoriaResponse> editarCategoria(String idCategoria, CategoriaRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(service.editarCategoriaBolsas(idCategoria, request));
+    }
+
+    @Override
+    public ResponseEntity<List<ProdutoResponse>> listarProdutosPorCategorias(String idCategoria) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarProdutosPorCategoria(idCategoria));
     }
 
 }

@@ -2,9 +2,12 @@ package ra.backend.services.Impl;
 
 import org.springframework.stereotype.Service;
 import ra.backend.entity.CategoriaEntity;
-import ra.backend.entity.DTOs.request.CategoriaBolsasRequest;
-import ra.backend.entity.DTOs.response.CategoriaBolsasResponse;
+import ra.backend.entity.DTOs.request.CategoriaRequest;
+import ra.backend.entity.DTOs.response.CategoriaResponse;
+import ra.backend.entity.DTOs.response.ProdutoResponse;
+import ra.backend.entity.ProdutosEntity;
 import ra.backend.repository.CategoriaRepository;
+import ra.backend.repository.ProdutoRepository;
 import ra.backend.services.CategoriaService;
 import ra.backend.services.exceptions.EntityNaoEncontrada;
 
@@ -16,13 +19,15 @@ import java.util.stream.Collectors;
 public class CategoriaServiceImpl implements CategoriaService {
 
     private final CategoriaRepository repository;
+    private final ProdutoRepository produtoRepository;
 
-    CategoriaServiceImpl(CategoriaRepository repository) {
+    CategoriaServiceImpl(CategoriaRepository repository, ProdutoRepository produtoRepository) {
         this.repository = repository;
+        this.produtoRepository = produtoRepository;
     }
 
     @Override
-    public CategoriaBolsasResponse cadastrar(CategoriaBolsasRequest request) {
+    public CategoriaResponse cadastrar(CategoriaRequest request) {
 
         CategoriaEntity entity = new CategoriaEntity();
 
@@ -30,20 +35,28 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         repository.save(entity);
 
-        return CategoriaBolsasResponse.toEntity(entity);
+        return CategoriaResponse.toEntity(entity);
 
     }
 
     @Override
-    public List<CategoriaBolsasResponse> listarTodasCategorias() {
+    public List<CategoriaResponse> listarTodasCategorias() {
 
         var listaCategorias = repository.findAll();
 
-        return listaCategorias.stream().map(CategoriaBolsasResponse::toEntity).collect(Collectors.toList());
+        return listaCategorias.stream().map(CategoriaResponse::toEntity).collect(Collectors.toList());
     }
 
     @Override
-    public CategoriaBolsasResponse editarCategoriaBolsas(String idCategoria, CategoriaBolsasRequest request) {
+    public List<ProdutoResponse> listarProdutosPorCategoria(String idCategoria) {
+
+        List<ProdutosEntity> listaProdutos = produtoRepository.findProdutosByCategoriaId(idCategoria);
+
+        return listaProdutos.stream().map(ProdutoResponse::toEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoriaResponse editarCategoriaBolsas(String idCategoria, CategoriaRequest request) {
 
         Optional<CategoriaEntity> buscarCategoria;
 
@@ -53,7 +66,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         repository.save(buscarCategoria.get());
 
-        return CategoriaBolsasResponse.toEntity(buscarCategoria.get());
+        return CategoriaResponse.toEntity(buscarCategoria.get());
 
     }
 
