@@ -1,5 +1,8 @@
 package ra.backend.services.Impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ra.backend.entity.CategoriaEntity;
 import ra.backend.entity.DTOs.request.CategoriaRequest;
@@ -18,11 +21,11 @@ import java.util.stream.Collectors;
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
 
-    private final CategoriaRepository repository;
+    private final CategoriaRepository categoriaRepository;
     private final ProdutoRepository produtoRepository;
 
     CategoriaServiceImpl(CategoriaRepository repository, ProdutoRepository produtoRepository) {
-        this.repository = repository;
+        this.categoriaRepository = repository;
         this.produtoRepository = produtoRepository;
     }
 
@@ -33,26 +36,32 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         entity.setNomeCategoria(request.getNomeCategoria());
 
-        repository.save(entity);
+        categoriaRepository.save(entity);
 
         return CategoriaResponse.toEntity(entity);
 
     }
 
     @Override
-    public List<CategoriaResponse> listarTodasCategorias() {
+    public Page<CategoriaResponse> listarTodasCategorias(Pageable pageable) {
 
-        var listaCategorias = repository.findAll();
+        var listaCategorias = categoriaRepository.listarPaginado(pageable);
 
-        return listaCategorias.stream().map(CategoriaResponse::toEntity).collect(Collectors.toList());
+        return new PageImpl<>(listaCategorias.stream().map(CategoriaResponse::toEntity).collect(Collectors.toList()), pageable, listaCategorias.getTotalElements());
     }
 
     @Override
-    public List<ProdutoResponse> listarProdutosPorCategoria(String idCategoria) {
+    public CategoriaResponse listarProdutosPorCategoria(String idCategoria) {
+
+        CategoriaEntity categoria = categoriaRepository.findByCategoriaById(idCategoria);
 
         List<ProdutosEntity> listaProdutos = produtoRepository.findProdutosByCategoriaId(idCategoria);
 
-        return listaProdutos.stream().map(ProdutoResponse::toEntity).collect(Collectors.toList());
+        CategoriaResponse retorno = CategoriaResponse.toEntity(categoria);
+
+        retorno.setProdutoResponses(listaProdutos.stream().map(ProdutoResponse::toEntity).collect(Collectors.toList()));
+
+        return retorno;
     }
 
     @Override
@@ -60,11 +69,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         Optional<CategoriaEntity> buscarCategoria;
 
-        buscarCategoria = Optional.ofNullable(repository.findById(idCategoria).orElseThrow( () -> new EntityNaoEncontrada("Categoria não encontrada")));
+        buscarCategoria = Optional.ofNullable(categoriaRepository.findById(idCategoria).orElseThrow( () -> new EntityNaoEncontrada("Categoria não encontrada")));
 
         buscarCategoria.get().setNomeCategoria(request.getNomeCategoria());
 
-        repository.save(buscarCategoria.get());
+        categoriaRepository.save(buscarCategoria.get());
 
         return CategoriaResponse.toEntity(buscarCategoria.get());
 

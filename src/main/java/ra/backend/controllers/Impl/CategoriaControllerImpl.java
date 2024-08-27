@@ -1,15 +1,16 @@
 package ra.backend.controllers.Impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.CategoriaController;
 import ra.backend.entity.DTOs.request.CategoriaRequest;
+import ra.backend.entity.DTOs.request.FiltroBusca;
 import ra.backend.entity.DTOs.response.CategoriaResponse;
-import ra.backend.entity.DTOs.response.ProdutoResponse;
 import ra.backend.services.CategoriaService;
-
-import java.util.List;
 
 @Service
 public class CategoriaControllerImpl implements CategoriaController {
@@ -27,8 +28,11 @@ public class CategoriaControllerImpl implements CategoriaController {
     }
 
     @Override
-    public ResponseEntity<List<CategoriaResponse>> listarTodas() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.listarTodasCategorias());
+    public Page<CategoriaResponse> listarTodasCategorias(FiltroBusca paginacao) {
+
+        Pageable pageable = PageRequest.of(paginacao.getPagina(), paginacao.getTamanhoPagina());
+
+        return service.listarTodasCategorias(pageable);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class CategoriaControllerImpl implements CategoriaController {
     }
 
     @Override
-    public ResponseEntity<List<ProdutoResponse>> listarProdutosPorCategorias(String idCategoria) {
+    public ResponseEntity<CategoriaResponse> listarProdutosPorCategorias(String idCategoria) {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarProdutosPorCategoria(idCategoria));
     }
 

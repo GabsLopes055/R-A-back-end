@@ -1,6 +1,5 @@
 package ra.backend.entity.DTOs.request;
 
-import ra.backend.entity.DTOs.response.FiltroBusca;
 import ra.backend.entity.enums.Role;
 import ra.backend.entity.enums.StatusUser;
 

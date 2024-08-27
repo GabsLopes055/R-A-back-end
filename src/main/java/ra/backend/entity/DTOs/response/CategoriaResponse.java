@@ -42,4 +42,13 @@ public class CategoriaResponse {
     public void setNomeCategoria(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
+
+    public List<ProdutoResponse> getProdutoResponses() {
+        return produtoResponses;
+    }
+
+    public void setProdutoResponses(List<ProdutoResponse> produtoResponses) {
+        this.produtoResponses = produtoResponses;
+    }
+
 }

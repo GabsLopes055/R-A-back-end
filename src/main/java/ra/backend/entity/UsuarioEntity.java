@@ -6,6 +6,7 @@ import ra.backend.entity.enums.Role;
 import ra.backend.entity.enums.StatusUser;
 
 @Entity
+@Table(name = "tbl_usuarios")
 public class UsuarioEntity {
 
     @Id

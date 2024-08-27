@@ -1,4 +1,4 @@
-package ra.backend.entity.DTOs.response;
+package ra.backend.entity.DTOs.request;
 
 public class FiltroBusca {
 
