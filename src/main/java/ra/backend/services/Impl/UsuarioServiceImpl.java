@@ -9,9 +9,11 @@ import ra.backend.entity.DTOs.request.FiltroUsuarioRequest;
 import ra.backend.entity.DTOs.request.UsuarioRequest;
 import ra.backend.entity.DTOs.response.UsuarioResponse;
 import ra.backend.entity.UsuarioEntity;
+import ra.backend.entity.enums.StatusUser;
 import ra.backend.repository.UsuarioRepository;
 import ra.backend.services.UsuarioService;
 import ra.backend.services.exceptions.EmailJaCadastradoService;
+import ra.backend.services.exceptions.EntityNaoEncontrada;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +65,44 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void deletarUsuario(String idUsuario) {
+    public String deletarUsuario(String idUsuario) {
+
+        var deletarUsuario = repository.findById(idUsuario);
+
+        if(deletarUsuario.isEmpty()) {
+            throw new EntityNaoEncontrada("Usuario não encontrado");
+        }
+
+        deletarUsuario.get().setStatus(StatusUser.INATIVO);
+
+        UsuarioEntity save = repository.save(deletarUsuario.get());
+
+        return "Usuário Desativado";
 
     }
 
     @Override
     public UsuarioResponse editarUsuario(String idUsuario, UsuarioRequest usuarioRequest) {
-        return null;
+
+        var editarUsuario = repository.findById(idUsuario);
+
+        if(editarUsuario.isEmpty()) {
+            throw new EntityNaoEncontrada("Usuario não encontrado");
+        }
+
+        Optional<UsuarioEntity> procurarUsuarioJaSalvo = repository.findByEmail(usuarioRequest.getEmail());
+
+        if (procurarUsuarioJaSalvo.isPresent()) {
+            throw new EmailJaCadastradoService("Email: " + usuarioRequest.getEmail() + " já esta cadastrado");
+        }
+
+        editarUsuario.get().setNomeCompleto(usuarioRequest.getNomeCompleto());
+        editarUsuario.get().setEmail(usuarioRequest.getEmail());
+        editarUsuario.get().setRole(usuarioRequest.getPermissao());
+        editarUsuario.get().setStatus(usuarioRequest.getStatusUsuario());
+
+        repository.save(editarUsuario.get());
+
+        return UsuarioResponse.toEntity(editarUsuario.get());
     }
 }

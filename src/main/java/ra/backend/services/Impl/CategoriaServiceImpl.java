@@ -13,6 +13,7 @@ import ra.backend.repository.CategoriaRepository;
 import ra.backend.repository.ProdutoRepository;
 import ra.backend.services.CategoriaService;
 import ra.backend.services.exceptions.EntityNaoEncontrada;
+import ra.backend.services.exceptions.OperacaoNaoAutorizada;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +70,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         Optional<CategoriaEntity> buscarCategoria;
 
-        buscarCategoria = Optional.ofNullable(categoriaRepository.findById(idCategoria).orElseThrow( () -> new EntityNaoEncontrada("Categoria não encontrada")));
+        buscarCategoria = Optional.ofNullable(categoriaRepository.findById(idCategoria).orElseThrow(() -> new EntityNaoEncontrada("Categoria não encontrada")));
 
         buscarCategoria.get().setNomeCategoria(request.getNomeCategoria());
 
@@ -77,6 +78,24 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         return CategoriaResponse.toEntity(buscarCategoria.get());
 
+    }
+
+    @Override
+    public String deletarCategoria(String idCategoria) {
+
+        var deletarCategoria = categoriaRepository.findById(idCategoria);
+
+        if (deletarCategoria.isEmpty()) {
+            throw new EntityNaoEncontrada("Categoria não encontrada");
+        }
+
+        if (deletarCategoria.get().getListaProdutos().isEmpty()) {
+            categoriaRepository.deleteById(deletarCategoria.get().getIdCategoria());
+        } else {
+            throw new OperacaoNaoAutorizada("Operação não autorizada");
+        }
+
+        return "Categoria Deletada";
     }
 
 

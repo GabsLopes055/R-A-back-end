@@ -1,19 +1,24 @@
 package ra.backend.controllers.Impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.ProdutoController;
+import ra.backend.entity.DTOs.request.FiltroProdutoRequest;
 import ra.backend.entity.DTOs.request.ProdutoRequest;
 import ra.backend.entity.DTOs.response.ProdutoResponse;
 import ra.backend.services.Impl.ProdutoServiceImpl;
+import ra.backend.services.ProdutoService;
 
 import java.util.List;
 
 @Service
 public class ProdutoControllerImpl implements ProdutoController {
 
-    private final ProdutoServiceImpl service;
+    private final ProdutoService service;
 
     ProdutoControllerImpl(ProdutoServiceImpl service) {
         this.service = service;
@@ -21,8 +26,11 @@ public class ProdutoControllerImpl implements ProdutoController {
 
 
     @Override
-    public ResponseEntity<List<ProdutoResponse>> listarTodosProdutos() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.listarTodosProdutos());
+    public Page<ProdutoResponse> listarTodosProdutos(FiltroProdutoRequest filtroProdutoRequest) {
+
+        Pageable pageable = PageRequest.of(filtroProdutoRequest.getPagina(), filtroProdutoRequest.getTamanhoPagina());
+
+        return service.listarTodosProdutos(filtroProdutoRequest, pageable);
     }
 
     @Override

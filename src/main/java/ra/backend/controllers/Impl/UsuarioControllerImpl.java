@@ -39,4 +39,14 @@ public class UsuarioControllerImpl implements UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
+
+    @Override
+    public ResponseEntity<String> deletarUsuario(String idUsuario) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.deletarUsuario(idUsuario));
+    }
+
+    @Override
+    public ResponseEntity<UsuarioResponse> editarUsuario(UsuarioRequest request, String idUsuario) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.editarUsuario(idUsuario, request));
+    }
 }

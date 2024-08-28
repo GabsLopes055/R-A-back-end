@@ -15,7 +15,7 @@ public interface UsuarioService {
 
     UsuarioResponse cadastrar(UsuarioRequest request);
 
-    void deletarUsuario(String idUsuario);
+    String deletarUsuario(String idUsuario);
 
     UsuarioResponse editarUsuario(String idUsuario, UsuarioRequest usuarioRequest);
 

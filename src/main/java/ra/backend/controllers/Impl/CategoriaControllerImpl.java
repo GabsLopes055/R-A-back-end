@@ -41,6 +41,11 @@ public class CategoriaControllerImpl implements CategoriaController {
     }
 
     @Override
+    public ResponseEntity<String> deletarCategoria(String idCategoria) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.deletarCategoria(idCategoria));
+    }
+
+    @Override
     public ResponseEntity<CategoriaResponse> listarProdutosPorCategorias(String idCategoria) {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarProdutosPorCategoria(idCategoria));
     }
