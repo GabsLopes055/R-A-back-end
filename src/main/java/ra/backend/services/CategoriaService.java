@@ -15,5 +15,5 @@ public interface CategoriaService {
 
     CategoriaResponse editarCategoriaBolsas(String idCategoria, CategoriaRequest request);
 
-    String deletarCategoria(String idCategoria);
+    void deletarCategoria(String idCategoria);
 }

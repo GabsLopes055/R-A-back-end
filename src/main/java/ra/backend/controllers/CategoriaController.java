@@ -21,7 +21,7 @@ public interface CategoriaController {
     ResponseEntity<CategoriaResponse> editarCategoria(@PathVariable(value = "idCategoria") String idCategoria, @RequestBody CategoriaRequest request);
 
     @DeleteMapping(value = "/deletarCategoria/{idCategoria}")
-    ResponseEntity<String> deletarCategoria(@PathVariable(value = "idCategoria") String idCategoria);
+    ResponseEntity<Void> deletarCategoria(@PathVariable(value = "idCategoria") String idCategoria);
 
     @GetMapping(value = "/listarProdutosPorCategoria/{idCategoria}")
     ResponseEntity<CategoriaResponse> listarProdutosPorCategorias(@PathVariable(value = "idCategoria") String idCategoria);

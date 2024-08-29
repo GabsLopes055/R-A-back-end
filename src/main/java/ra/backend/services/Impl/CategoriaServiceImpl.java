@@ -81,7 +81,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public String deletarCategoria(String idCategoria) {
+    public void deletarCategoria(String idCategoria) {
 
         var deletarCategoria = categoriaRepository.findById(idCategoria);
 
@@ -95,7 +95,6 @@ public class CategoriaServiceImpl implements CategoriaService {
             throw new OperacaoNaoAutorizada("Operação não autorizada");
         }
 
-        return "Categoria Deletada";
     }
 
 
