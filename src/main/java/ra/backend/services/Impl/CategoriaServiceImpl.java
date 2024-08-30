@@ -97,5 +97,17 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     }
 
+    @Override
+    public CategoriaResponse buscarCategoriaPorId(String idCategoria) {
+
+        var categoria = categoriaRepository.findById(idCategoria);
+
+        if(categoria.isEmpty()) {
+            throw new EntityNaoEncontrada("Categoria não encontrada");
+        }
+
+        return CategoriaResponse.toEntity(categoria.get());
+    }
+
 
 }

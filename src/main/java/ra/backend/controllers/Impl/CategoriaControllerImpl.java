@@ -53,4 +53,10 @@ public class CategoriaControllerImpl implements CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarProdutosPorCategoria(idCategoria));
     }
 
+    @Override
+    public ResponseEntity<CategoriaResponse> buscarCategoriaPorId(String idCategoria) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarCategoriaPorId(idCategoria));
+    }
+
+
 }

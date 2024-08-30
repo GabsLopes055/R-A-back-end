@@ -25,4 +25,8 @@ public interface CategoriaController {
 
     @GetMapping(value = "/listarProdutosPorCategoria/{idCategoria}")
     ResponseEntity<CategoriaResponse> listarProdutosPorCategorias(@PathVariable(value = "idCategoria") String idCategoria);
+
+    @GetMapping(value = "/buscarCategoriaPorId/{idCategoria}")
+    ResponseEntity<CategoriaResponse> buscarCategoriaPorId(@PathVariable(value = "idCategoria") String idCategoria);
+
 }
