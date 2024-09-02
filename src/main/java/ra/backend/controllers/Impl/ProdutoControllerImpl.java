@@ -37,4 +37,12 @@ public class ProdutoControllerImpl implements ProdutoController {
     public ResponseEntity<ProdutoResponse> salvarProduto(ProdutoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastra(request));
     }
+
+    @Override
+    public ResponseEntity<String> deletarProduto(String idProduto) {
+
+        service.deletarProduto(idProduto);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Produto deletado");
+    }
 }

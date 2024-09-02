@@ -14,4 +14,5 @@ public interface ProdutoService {
 
     Page<ProdutoResponse> listarTodosProdutos(FiltroProdutoRequest filtroProdutoRequest, Pageable pageable);
 
+    void deletarProduto(String idProduto);
 }

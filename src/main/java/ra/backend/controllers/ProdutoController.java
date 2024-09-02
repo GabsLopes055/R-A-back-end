@@ -19,5 +19,7 @@ public interface ProdutoController {
     @PostMapping(value = "/salvarProduto")
     ResponseEntity<ProdutoResponse> salvarProduto(@RequestBody ProdutoRequest request);
 
+    @DeleteMapping(value = "/deletarProduto/{idProduto}")
+    ResponseEntity<String> deletarProduto(@PathVariable(value = "idProduto") String idProduto);
 
 }

@@ -61,6 +61,19 @@ public class ProdutoServiceImpl implements ProdutoService {
         return new PageImpl<>(listaProdutos.stream().map(ProdutoResponse::toResponseDTO).collect(Collectors.toList()), pageable, listaProdutos.getTotalElements());
     }
 
+    @Override
+    public void deletarProduto(String idProduto) {
+
+        Optional<ProdutosEntity> produto = repository.findById(idProduto);
+
+        if(produto.isEmpty()) {
+            throw new EntityNaoEncontrada("Produto não encontrado");
+        } else {
+            repository.deleteById(produto.get().getIdProduto());
+        }
+
+    }
+
     private CategoriaEntity validaSeExisteCategoria(String idCategoria) {
 
         Optional<CategoriaEntity> categoria = Optional.ofNullable(categoriaRepository.findById(idCategoria).orElseThrow(
