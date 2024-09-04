@@ -16,7 +16,7 @@ public class CategoriaEntity {
 
     private String nomeCategoria;
 
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ProdutosEntity> listaProdutos = new ArrayList<>();
 

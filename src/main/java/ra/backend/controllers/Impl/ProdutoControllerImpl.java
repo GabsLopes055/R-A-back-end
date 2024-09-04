@@ -39,10 +39,22 @@ public class ProdutoControllerImpl implements ProdutoController {
     }
 
     @Override
-    public ResponseEntity<String> deletarProduto(String idProduto) {
+    public ResponseEntity<Void> deletarProduto(String idProduto) {
 
         service.deletarProduto(idProduto);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Produto deletado");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @Override
+    public ResponseEntity<ProdutoResponse> editarProduto(String idProduto, ProdutoRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.editarProduto(idProduto, request));
+    }
+
+    @Override
+    public ResponseEntity<ProdutoResponse> buscarProdutoPorId(String idProduto) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarProdutoPorId(idProduto));
+    }
+
+
 }

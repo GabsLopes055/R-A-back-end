@@ -12,7 +12,7 @@ import ra.backend.services.exceptions.EntityNaoEncontrada;
 import java.time.Instant;
 
 @ControllerAdvice
-public class UsuarioNaoEncontradoController extends ResponseEntityExceptionHandler {
+public class EntidadeNaoEncontradoController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNaoEncontrada.class)
     public ResponseEntity<ExcecaoExemplo> usuarioNaoEncontradoException(EntityNaoEncontrada exception, HttpServletRequest request) {
@@ -21,7 +21,7 @@ public class UsuarioNaoEncontradoController extends ResponseEntityExceptionHandl
 
         excecaoExemplo.setCaminho(request.getRequestURI());
         excecaoExemplo.setMensagem(exception.getMessage());
-        excecaoExemplo.setError("Usuário não encontrado na base de dados");
+        excecaoExemplo.setError("Entidade não encontrado na base de dados");
         excecaoExemplo.setStatus(HttpStatus.NOT_FOUND.value());
         excecaoExemplo.setMomentoDaExcecao(Instant.now());
 

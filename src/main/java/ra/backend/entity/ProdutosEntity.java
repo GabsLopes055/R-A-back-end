@@ -18,7 +18,7 @@ public class ProdutosEntity {
 
     private Integer quantidade;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
 

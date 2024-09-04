@@ -66,12 +66,51 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         Optional<ProdutosEntity> produto = repository.findById(idProduto);
 
-        if(produto.isEmpty()) {
+        if (produto.isEmpty()) {
             throw new EntityNaoEncontrada("Produto não encontrado");
         } else {
-            repository.deleteById(produto.get().getIdProduto());
+            repository.delete(produto.get());
         }
 
+    }
+
+    @Override
+    public ProdutoResponse editarProduto(String idProduto, ProdutoRequest request) {
+
+        Optional<ProdutosEntity> produto = repository.findById(idProduto);
+
+        Optional<CategoriaEntity> categoria = categoriaRepository.findById(request.getCategoria().getIdCategoria());
+
+        if (produto.isEmpty()) {
+            throw new EntityNaoEncontrada("Produto não encontrado");
+        }
+
+        if (categoria.isEmpty()) {
+            throw new EntityNaoEncontrada("Categoria não encontrado");
+        }
+
+        produto.get().setNomeProduto(request.getNomeProduto());
+        produto.get().setPrecoCompra(request.getPrecoCompra());
+        produto.get().setPrecoVenda(request.getPrecoVenda());
+        produto.get().setQuantidade(request.getQuantidade());
+        produto.get().setCategoria(categoria.get());
+
+        repository.save(produto.get());
+
+        return ProdutoResponse.toResponseDTO(produto.get());
+
+    }
+
+    @Override
+    public ProdutoResponse buscarProdutoPorId(String idProduto) {
+
+        Optional<ProdutosEntity> produto = repository.findById(idProduto);
+
+        if(produto.isEmpty()) {
+            throw new EntityNaoEncontrada("Produto não encontrado");
+        }
+
+        return ProdutoResponse.toResponseDTO(produto.get());
     }
 
     private CategoriaEntity validaSeExisteCategoria(String idCategoria) {
