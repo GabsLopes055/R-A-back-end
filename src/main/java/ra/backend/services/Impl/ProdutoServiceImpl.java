@@ -2,14 +2,11 @@ package ra.backend.services.Impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ra.backend.entity.CategoriaEntity;
-import ra.backend.entity.DTOs.request.CategoriaRequest;
 import ra.backend.entity.DTOs.request.FiltroProdutoRequest;
 import ra.backend.entity.DTOs.request.ProdutoRequest;
-import ra.backend.entity.DTOs.response.CategoriaResponse;
 import ra.backend.entity.DTOs.response.ProdutoResponse;
 import ra.backend.entity.ProdutosEntity;
 import ra.backend.repository.CategoriaRepository;
@@ -17,7 +14,6 @@ import ra.backend.repository.ProdutoRepository;
 import ra.backend.services.ProdutoService;
 import ra.backend.services.exceptions.EntityNaoEncontrada;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

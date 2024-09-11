@@ -1,6 +1,8 @@
 package ra.backend.entity;
 
 import jakarta.persistence.*;
+import ra.backend.entity.enums.MetodoPagamento;
+import ra.backend.entity.enums.StatusVenda;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,14 +22,17 @@ public class VendaEntity {
 
     private Double totalVenda;
 
-    private LocalDateTime  dataVenda;
+    private LocalDateTime dataVenda;
 
-    private String metodoPagamento;
+    private MetodoPagamento metodoPagamento;
 
-    private String status; // Ex: "CONCLUIDA", "CANCELADA", "PENDENTE"
+    private StatusVenda status;
 
     private Double desconto;
 
-    private Double taxa;
+    @PrePersist
+    private void PrePersist() {
+        dataVenda = LocalDateTime.now();
+    }
 
 }
