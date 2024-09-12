@@ -6,6 +6,8 @@ import ra.backend.entity.VendaEntity;
 import ra.backend.repository.VendasRepository;
 import ra.backend.services.VendasService;
 
+import java.util.List;
+
 @Service
 public class VendaServiceImpl implements VendasService {
 
@@ -18,5 +20,10 @@ public class VendaServiceImpl implements VendasService {
         System.out.println(vendaEntity.toString());
 
         return repository.save(vendaEntity);
+    }
+
+    @Override
+    public List<VendaEntity> listarTodasVendas() {
+        return repository.findAll();
     }
 }

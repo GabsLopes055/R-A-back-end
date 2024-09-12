@@ -13,5 +13,7 @@ public interface VendaController {
     @PostMapping(value = "/cadastrarVenda")
     ResponseEntity<VendaEntity> cadastrarVenda(@RequestBody VendaEntity entity);
 
+    @GetMapping(value = "/listarVendas")
+    ResponseEntity<List<VendaEntity>> listarVendas();
 
 }

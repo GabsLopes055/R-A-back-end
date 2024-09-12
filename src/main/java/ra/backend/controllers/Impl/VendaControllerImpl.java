@@ -21,4 +21,9 @@ public class VendaControllerImpl implements VendaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarVenda(entity));
     }
 
+    @Override
+    public ResponseEntity<List<VendaEntity>> listarVendas() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTodasVendas());
+    }
+
 }
