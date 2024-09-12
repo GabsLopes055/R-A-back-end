@@ -30,11 +30,6 @@ public class VendaEntity {
 
     private Double desconto;
 
-    @PrePersist
-    private void PrePersist() {
-        dataVenda = LocalDateTime.now();
-    }
-
     public VendaEntity() {
     }
 
@@ -46,6 +41,11 @@ public class VendaEntity {
         this.metodoPagamento = metodoPagamento;
         this.status = status;
         this.desconto = desconto;
+    }
+
+    @PrePersist
+    private void PrePersist() {
+        dataVenda = LocalDateTime.now();
     }
 
     public String getIdVenda() {
