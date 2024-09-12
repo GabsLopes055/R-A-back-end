@@ -1,6 +1,9 @@
 package ra.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_produtos")
@@ -22,6 +25,10 @@ public class ProdutosEntity {
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
 
+
+    @ManyToMany(mappedBy = "produtosVendidos")
+    @JsonBackReference
+    private List<VendaEntity> vendas;
 
     public ProdutosEntity() {
     }
@@ -81,6 +88,14 @@ public class ProdutosEntity {
 
     public void setCategoria(CategoriaEntity categoria) {
         this.categoria = categoria;
+    }
+
+    public List<VendaEntity> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(List<VendaEntity> vendas) {
+        this.vendas = vendas;
     }
 
     @Override

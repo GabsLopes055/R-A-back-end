@@ -16,9 +16,13 @@ public class VendaEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idVenda;
 
-    @OneToMany
-    @JoinColumn(name = "venda_id")
-    private List<ProdutosEntity> produtosVendidos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "venda_produto",
+            joinColumns = @JoinColumn(name = "id_venda"),
+            inverseJoinColumns = @JoinColumn(name = "id_produto")
+    )
+    private List<ProdutosEntity> produtosVendidos;
 
     private Double totalVenda;
 
