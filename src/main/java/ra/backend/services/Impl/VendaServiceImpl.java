@@ -30,6 +30,8 @@ public class VendaServiceImpl implements VendasService {
 
         VendaEntity salvarVenda = VendaRequest.toEntity(vendaEntity);
 
+//        this.darBaixaProduto(salvarVenda.getProdutosVendidos());
+
         repository.save(salvarVenda);
 
         return VendaResponse.toResponse(salvarVenda);
@@ -41,10 +43,6 @@ public class VendaServiceImpl implements VendasService {
         Page<VendaEntity> response = repository.listarPorPaginacao(paginacao);
 
         return new PageImpl<>(response.stream().map(VendaResponse::toResponse).collect(Collectors.toList()), paginacao, response.getTotalElements());
-
-    }
-
-    void darBaixaProduto(List<ProdutosEntity> produtos) {
 
     }
 

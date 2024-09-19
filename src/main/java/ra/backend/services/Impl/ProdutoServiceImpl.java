@@ -14,6 +14,7 @@ import ra.backend.repository.ProdutoRepository;
 import ra.backend.services.ProdutoService;
 import ra.backend.services.exceptions.EntityNaoEncontrada;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -117,6 +118,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         return categoria.get();
 
+    }
+
+    boolean darBaixaProduto(List<ProdutosEntity> produtos) {
+
+
+
+        return true;
     }
 }
 
