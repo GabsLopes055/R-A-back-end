@@ -3,6 +3,9 @@ package ra.backend.entity.DTOs.response;
 import ra.backend.entity.CategoriaEntity;
 import ra.backend.entity.ProdutosEntity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProdutoResponse {
 
     private String idProduto;
@@ -20,7 +23,7 @@ public class ProdutoResponse {
     public ProdutoResponse() {
     }
 
-    public static ProdutoResponse toEntity(ProdutosEntity entity) {
+    public static ProdutoResponse toEntity(ProdutoResponse entity) {
         ProdutoResponse response = new ProdutoResponse();
 
         response.setIdProduto(entity.getIdProduto());
@@ -32,6 +35,14 @@ public class ProdutoResponse {
         return response;
     }
 
+    public static ProdutoResponse toResponseDTO(ProdutosEntity produtoSalvo) {
+        return new ProdutoResponse(produtoSalvo.getIdProduto(), produtoSalvo.getNomeProduto(), produtoSalvo.getPrecoVenda(), produtoSalvo.getPrecoCompra(), produtoSalvo.getQuantidade(), produtoSalvo.getCategoria());
+    }
+
+    public static List<ProdutoResponse> listaProdutosResponse(List<ProdutosEntity> produtosEntities) {
+        return produtosEntities.stream().map(ProdutoResponse::toResponseDTO).collect(Collectors.toList());
+    }
+
     public ProdutoResponse(String idProduto, String nomeProduto, Double precoVenda, Double precoCompra, Integer quantidade, CategoriaEntity categoria) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
@@ -41,9 +52,6 @@ public class ProdutoResponse {
         this.categoria = categoria;
     }
 
-    public static ProdutoResponse toResponseDTO(ProdutosEntity produtoSalvo) {
-        return new ProdutoResponse(produtoSalvo.getIdProduto(), produtoSalvo.getNomeProduto(), produtoSalvo.getPrecoVenda(), produtoSalvo.getPrecoCompra(), produtoSalvo.getQuantidade(), produtoSalvo.getCategoria());
-    }
 
     public String getIdProduto() {
         return idProduto;

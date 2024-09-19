@@ -1,6 +1,10 @@
 package ra.backend.entity.DTOs.request;
 
+import ra.backend.entity.ProdutosEntity;
+
 public class ProdutoRequest {
+
+    private String idProduto;
 
     private String nomeProduto;
 
@@ -12,6 +16,19 @@ public class ProdutoRequest {
 
     private CategoriaRequest categoria;
 
+    public static ProdutosEntity toEntity(ProdutoRequest request) {
+
+        ProdutosEntity entity = new ProdutosEntity();
+
+        entity.setIdProduto(request.getIdProduto());
+        entity.setNomeProduto(request.getNomeProduto());
+        entity.setQuantidade(request.getQuantidade());
+        entity.setPrecoCompra(request.getPrecoCompra());
+        entity.setPrecoVenda(request.getPrecoVenda());
+
+        return entity;
+    }
+
     public ProdutoRequest() {
     }
 
@@ -21,6 +38,14 @@ public class ProdutoRequest {
         this.precoCompra = precoCompra;
         this.quantidade = quantidade;
         this.categoria = categoria;
+    }
+
+    public String getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(String idProduto) {
+        this.idProduto = idProduto;
     }
 
     public String getNomeProduto() {

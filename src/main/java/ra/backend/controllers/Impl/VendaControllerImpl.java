@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.VendaController;
 import ra.backend.entity.DTOs.request.FiltroBusca;
+import ra.backend.entity.DTOs.request.VendaRequest;
+import ra.backend.entity.DTOs.response.VendaResponse;
 import ra.backend.entity.VendaEntity;
 import ra.backend.services.VendasService;
 
@@ -21,12 +23,12 @@ public class VendaControllerImpl implements VendaController {
     private VendasService service;
 
     @Override
-    public ResponseEntity<VendaEntity> cadastrarVenda(VendaEntity entity) {
+    public ResponseEntity<VendaResponse> cadastrarVenda(VendaRequest entity) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarVenda(entity));
     }
 
     @Override
-    public Page<VendaEntity> listarVendas(FiltroBusca filtroBusca) {
+    public Page<VendaResponse> listarVendas(FiltroBusca filtroBusca) {
 
         Pageable pageable = PageRequest.of(filtroBusca.getPagina(), filtroBusca.getTamanhoPagina());
 
