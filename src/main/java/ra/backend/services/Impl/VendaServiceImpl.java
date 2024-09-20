@@ -23,16 +23,21 @@ import java.util.stream.Collectors;
 public class VendaServiceImpl implements VendasService {
 
     @Autowired
-    private VendasRepository repository;
+    private VendasRepository vendasRepository;
+
+    @Autowired
+    private ProdutoServiceImpl produtoServiceImpl;
 
     @Override
     public VendaResponse cadastrarVenda(VendaRequest vendaEntity) {
 
         VendaEntity salvarVenda = VendaRequest.toEntity(vendaEntity);
 
-//        this.darBaixaProduto(salvarVenda.getProdutosVendidos());
+        List<ProdutosEntity> listaProdutos = darBaixaProduto(salvarVenda.getProdutosVendidos());
 
-        repository.save(salvarVenda);
+        salvarVenda.setProdutosVendidos(listaProdutos);
+
+        vendasRepository.save(salvarVenda);
 
         return VendaResponse.toResponse(salvarVenda);
     }
@@ -40,10 +45,21 @@ public class VendaServiceImpl implements VendasService {
     @Override
     public Page<VendaResponse> listarTodasVendas(Pageable paginacao) {
 
-        Page<VendaEntity> response = repository.listarPorPaginacao(paginacao);
+        Page<VendaEntity> response = vendasRepository.listarPorPaginacao(paginacao);
 
         return new PageImpl<>(response.stream().map(VendaResponse::toResponse).collect(Collectors.toList()), paginacao, response.getTotalElements());
 
+    }
+
+    private List<ProdutosEntity> darBaixaProduto(List<ProdutosEntity> produtosEntities) {
+
+        List<ProdutosEntity> listaProdutos = new ArrayList<>();
+
+        produtosEntities.forEach(produto -> {
+            listaProdutos.add(produtoServiceImpl.darBaixaProduto(produto.getIdProduto()));
+        });
+
+        return listaProdutos;
     }
 
 }

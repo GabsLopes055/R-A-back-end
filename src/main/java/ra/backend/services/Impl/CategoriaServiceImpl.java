@@ -60,7 +60,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         CategoriaResponse retorno = CategoriaResponse.toEntity(categoria);
 
-        retorno.setProdutoResponses(listaProdutos.stream().map(ProdutoResponse::toEntity).collect(Collectors.toList()));
+        retorno.setProdutoResponses(listaProdutos.stream().map(ProdutoResponse::toResponseDTO).collect(Collectors.toList()));
 
         return retorno;
     }

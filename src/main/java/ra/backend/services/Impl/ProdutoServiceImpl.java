@@ -120,12 +120,26 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     }
 
-    boolean darBaixaProduto(List<ProdutosEntity> produtos) {
+    public ProdutosEntity darBaixaProduto(String idProduto) {
 
+        // Encontra o produto pelo id
+             ProdutosEntity produto = repository.findById(idProduto)
+                .orElseThrow(() -> new EntityNaoEncontrada("Produto não encontrado"));
 
+        // Verifica se o produto tem quantidade em estoque
+        int quantidadeAtual = produto.getQuantidade();
+        if (quantidadeAtual == 0) {
+            throw new IllegalArgumentException("Produto sem estoque");
+        }
 
-        return true;
+        // Atualiza a quantidade e salva o produto
+        produto.setQuantidade(quantidadeAtual - 1);
+        repository.save(produto);
+
+        return produto;
+
     }
+
 }
 
 
