@@ -18,7 +18,9 @@ public interface ProdutoRepository extends JpaRepository<ProdutosEntity, String>
 
     @Query("""
             SELECT produto FROM ProdutosEntity produto
-        WHERE (:#{#filtro.tipoProduto} IS NULL OR LOWER(produto.nomeProduto) LIKE LOWER(CONCAT('%', :#{#filtro.tipoProduto}, '%')))
+            WHERE (:#{#filtro.tipoProduto} IS NULL OR LOWER(produto.nomeProduto) 
+            LIKE LOWER(CONCAT('%', :#{#filtro.tipoProduto}, '%')))
+            AND produto.quantidade > 0
             """)
     Page<ProdutosEntity> listarPorFiltro(FiltroProdutoRequest filtro, Pageable pageable);
 
