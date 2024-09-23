@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.VendaController;
 import ra.backend.entity.DTOs.request.FiltroBusca;
+import ra.backend.entity.DTOs.request.FiltroVendaRequest;
 import ra.backend.entity.DTOs.request.VendaRequest;
 import ra.backend.entity.DTOs.response.VendaResponse;
 import ra.backend.entity.VendaEntity;
@@ -28,7 +29,7 @@ public class VendaControllerImpl implements VendaController {
     }
 
     @Override
-    public Page<VendaResponse> listarVendas(FiltroBusca filtroBusca) {
+    public Page<VendaResponse> listarVendas(FiltroVendaRequest filtroBusca) {
 
         Pageable pageable = PageRequest.of(filtroBusca.getPagina(), filtroBusca.getTamanhoPagina());
 
