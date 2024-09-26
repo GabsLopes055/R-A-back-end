@@ -35,4 +35,9 @@ public class VendaControllerImpl implements VendaController {
         return null;
     }
 
+    @Override
+    public ResponseEntity<VendaResponse> buscarVendaPorId(String idVenda) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarVendaPorId(idVenda));
+    }
+
 }

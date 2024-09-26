@@ -16,11 +16,13 @@ import ra.backend.entity.ProdutosEntity;
 import ra.backend.entity.VendaEntity;
 import ra.backend.repository.VendasRepository;
 import ra.backend.services.VendasService;
+import ra.backend.services.exceptions.EntityNaoEncontrada;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +62,16 @@ public class VendaServiceImpl implements VendasService {
     @Override
     public void deletarVenda(String idVenda) {
         System.out.println(idVenda);
+    }
+
+    @Override
+    public VendaResponse buscarVendaPorId(String idVenda) {
+
+        Optional<VendaEntity> buscarVenda = Optional.of(vendasRepository.findById(idVenda).orElseThrow(() -> new EntityNaoEncontrada("Venda não encontrada !")));
+
+        VendaResponse respose = VendaResponse.toResponse(buscarVenda.get());
+
+        return respose;
     }
 
     private List<ProdutosEntity> darBaixaProduto(List<ProdutosEntity> produtosEntities) {

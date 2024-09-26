@@ -20,4 +20,6 @@ public interface VendaController {
     @DeleteMapping(value = "/deletarVenda/{idVenda}")
     ResponseEntity<?> deletarVenda(@PathVariable(value = "idVenda") String idVenda);
 
+    @GetMapping(value = "/buscarVendaPorId/{idVenda}")
+    ResponseEntity<VendaResponse> buscarVendaPorId(@PathVariable(value = "idVenda") String idVenda);
 }

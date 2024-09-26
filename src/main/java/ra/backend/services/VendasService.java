@@ -13,4 +13,6 @@ public interface VendasService {
 
     void deletarVenda(String idVenda);
 
+    VendaResponse buscarVendaPorId(String idVenda);
+
 }
