@@ -8,14 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ra.backend.controllers.VendaController;
-import ra.backend.entity.DTOs.request.FiltroBusca;
 import ra.backend.entity.DTOs.request.FiltroVendaRequest;
 import ra.backend.entity.DTOs.request.VendaRequest;
 import ra.backend.entity.DTOs.response.VendaResponse;
-import ra.backend.entity.VendaEntity;
 import ra.backend.services.VendasService;
-
-import java.util.List;
 
 @Service
 public class VendaControllerImpl implements VendaController {
@@ -30,10 +26,13 @@ public class VendaControllerImpl implements VendaController {
 
     @Override
     public Page<VendaResponse> listarVendas(FiltroVendaRequest filtroBusca) {
+        return service.listarTodasVendas(filtroBusca);
+    }
 
-        Pageable pageable = PageRequest.of(filtroBusca.getPagina(), filtroBusca.getTamanhoPagina());
-
-        return service.listarTodasVendas(pageable);
+    @Override
+    public ResponseEntity<?> deletarVenda(String idVenda) {
+        service.deletarVenda(idVenda);
+        return null;
     }
 
 }

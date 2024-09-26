@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import ra.backend.entity.enums.MetodoPagamento;
 import ra.backend.entity.enums.StatusVenda;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class VendaEntity {
 
     private Double totalVenda;
 
-    private LocalDateTime dataVenda;
+    private LocalDate dataVenda;
 
     private MetodoPagamento metodoPagamento;
 
@@ -37,7 +38,7 @@ public class VendaEntity {
     public VendaEntity() {
     }
 
-    public VendaEntity(String idVenda, List<ProdutosEntity> produtosVendidos, Double totalVenda, LocalDateTime dataVenda, MetodoPagamento metodoPagamento, StatusVenda status, Double desconto) {
+    public VendaEntity(String idVenda, List<ProdutosEntity> produtosVendidos, Double totalVenda, LocalDate dataVenda, MetodoPagamento metodoPagamento, StatusVenda status, Double desconto) {
         this.idVenda = idVenda;
         this.produtosVendidos = produtosVendidos;
         this.totalVenda = totalVenda;
@@ -49,7 +50,7 @@ public class VendaEntity {
 
     @PrePersist
     private void PrePersist() {
-        dataVenda = LocalDateTime.now();
+        dataVenda = LocalDate.now();
     }
 
     public String getIdVenda() {
@@ -76,11 +77,11 @@ public class VendaEntity {
         this.totalVenda = totalVenda;
     }
 
-    public LocalDateTime getDataVenda() {
+    public LocalDate getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(LocalDateTime dataVenda) {
+    public void setDataVenda(LocalDate dataVenda) {
         this.dataVenda = dataVenda;
     }
 

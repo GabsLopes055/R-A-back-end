@@ -1,23 +1,32 @@
 package ra.backend.entity.DTOs.request;
 
+import java.time.LocalDate;
+
 public class FiltroVendaRequest extends FiltroBusca {
 
-    private String dataBusca;
+    private LocalDate dataInicio;
 
-    public FiltroVendaRequest(String dataBusca) {
-        this.dataBusca = dataBusca;
-    }
+    private LocalDate dataFim;
 
-    public FiltroVendaRequest(Integer pagina, Integer tamanhoPagina, String dataBusca) {
+    public FiltroVendaRequest(Integer pagina, Integer tamanhoPagina, LocalDate dataInicio, LocalDate dataFim) {
         super(pagina, tamanhoPagina);
-        this.dataBusca = dataBusca;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
-    public String getDataBusca() {
-        return dataBusca;
+    public LocalDate getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataBusca(String dataBusca) {
-        this.dataBusca = dataBusca;
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 }

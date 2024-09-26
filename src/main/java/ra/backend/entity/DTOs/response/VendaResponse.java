@@ -6,6 +6,7 @@ import ra.backend.entity.VendaEntity;
 import ra.backend.entity.enums.MetodoPagamento;
 import ra.backend.entity.enums.StatusVenda;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class VendaResponse {
 
     private Double totalVenda;
 
-    private LocalDateTime dataVenda;
+    private LocalDate dataVenda;
 
     private MetodoPagamento metodoPagamento;
 
@@ -44,7 +45,7 @@ public class VendaResponse {
     public VendaResponse() {
     }
 
-    public VendaResponse(String idVenda, List<ProdutoResponse> produtosVendidos, Double totalVenda, LocalDateTime dataVenda, MetodoPagamento metodoPagamento, StatusVenda status, Double desconto) {
+    public VendaResponse(String idVenda, List<ProdutoResponse> produtosVendidos, Double totalVenda, LocalDate dataVenda, MetodoPagamento metodoPagamento, StatusVenda status, Double desconto) {
         this.idVenda = idVenda;
         this.produtosVendidos = produtosVendidos;
         this.totalVenda = totalVenda;
@@ -78,11 +79,11 @@ public class VendaResponse {
         this.totalVenda = totalVenda;
     }
 
-    public LocalDateTime getDataVenda() {
+    public LocalDate getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(LocalDateTime dataVenda) {
+    public void setDataVenda(LocalDate dataVenda) {
         this.dataVenda = dataVenda;
     }
 
