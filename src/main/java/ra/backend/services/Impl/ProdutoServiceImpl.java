@@ -103,7 +103,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         Optional<ProdutosEntity> produto = repository.findById(idProduto);
 
-        if(produto.isEmpty()) {
+        if (produto.isEmpty()) {
             throw new EntityNaoEncontrada("Produto não encontrado");
         }
 
@@ -123,7 +123,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public ProdutosEntity darBaixaProduto(String idProduto) {
 
         // Encontra o produto pelo id
-             ProdutosEntity produto = repository.findById(idProduto)
+        ProdutosEntity produto = repository.findById(idProduto)
                 .orElseThrow(() -> new EntityNaoEncontrada("Produto não encontrado"));
 
         // Verifica se o produto tem quantidade em estoque
@@ -138,6 +138,18 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         return produto;
 
+    }
+
+    public void retornarProdutoAoEstoque(ProdutosEntity produto) {
+
+
+        ProdutosEntity findProduto = repository.findById(produto.getIdProduto())
+                .orElseThrow(() -> new EntityNaoEncontrada("Produto não encontrado"));
+
+        int quantidadeAtual = produto.getQuantidade();
+
+        produto.setQuantidade(quantidadeAtual + 1);
+        repository.save(produto);
     }
 
 }

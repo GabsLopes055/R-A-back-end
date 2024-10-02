@@ -61,7 +61,10 @@ public class VendaServiceImpl implements VendasService {
 
     @Override
     public void deletarVenda(String idVenda) {
-        System.out.println(idVenda);
+
+        Optional<VendaEntity> findVenda = Optional.of(vendasRepository.findById(idVenda).orElseThrow(() -> new EntityNaoEncontrada("Venda não encontrada")));
+        findVenda.get().getProdutosVendidos().forEach(produto -> produtoServiceImpl.retornarProdutoAoEstoque(produto));
+        vendasRepository.deleteById(findVenda.get().getIdVenda());
     }
 
     @Override
