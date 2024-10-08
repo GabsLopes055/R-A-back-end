@@ -69,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         var deletarUsuario = repository.findById(idUsuario);
 
-        if(deletarUsuario.isEmpty()) {
+        if (deletarUsuario.isEmpty()) {
             throw new EntityNaoEncontrada("Usuario não encontrado");
         }
 
@@ -82,11 +82,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse editarUsuario(String idUsuario, UsuarioRequest usuarioRequest) {
+    public UsuarioResponse editarUsuario(String idUsuario, UsuarioResponse usuarioRequest) {
 
         var editarUsuario = repository.findById(idUsuario);
 
-        if(editarUsuario.isEmpty()) {
+        if (editarUsuario.isEmpty()) {
             throw new EntityNaoEncontrada("Usuario não encontrado");
         }
 
@@ -104,5 +104,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         repository.save(editarUsuario.get());
 
         return UsuarioResponse.toEntity(editarUsuario.get());
+    }
+
+    @Override
+    public UsuarioResponse buscarPorId(String idUsuario) {
+
+        Optional<UsuarioEntity> buscarUsuarioPorId = Optional.ofNullable(repository.findById(idUsuario).orElseThrow(() -> new EntityNaoEncontrada("Usuário não encontrado")));
+
+        return UsuarioResponse.toEntity(buscarUsuarioPorId.get());
     }
 }

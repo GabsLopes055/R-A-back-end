@@ -17,6 +17,8 @@ public interface UsuarioService {
 
     String deletarUsuario(String idUsuario);
 
-    UsuarioResponse editarUsuario(String idUsuario, UsuarioRequest usuarioRequest);
+    UsuarioResponse editarUsuario(String idUsuario, UsuarioResponse usuarioRequest);
+
+    UsuarioResponse buscarPorId(String idUsuario);
 
 }

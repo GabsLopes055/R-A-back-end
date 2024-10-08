@@ -41,12 +41,17 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
+    public ResponseEntity<UsuarioResponse> buscarPorId(String idUsuario) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(idUsuario));
+    }
+
+    @Override
     public ResponseEntity<String> deletarUsuario(String idUsuario) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.deletarUsuario(idUsuario));
     }
 
     @Override
-    public ResponseEntity<UsuarioResponse> editarUsuario(UsuarioRequest request, String idUsuario) {
+    public ResponseEntity<UsuarioResponse> editarUsuario(UsuarioResponse request, String idUsuario) {
         return ResponseEntity.status(HttpStatus.OK).body(service.editarUsuario(idUsuario, request));
     }
 }

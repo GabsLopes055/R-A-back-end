@@ -17,9 +17,12 @@ public interface UsuarioController {
     @PostMapping(value = "/cadastrar")
     ResponseEntity<UsuarioResponse> cadastrar(@RequestBody UsuarioRequest request);
 
+    @GetMapping(value = "/buscarPorId/{idUsuario}")
+    ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable(value = "idUsuario") String idUsuario);
+
     @DeleteMapping(value = "/deletarUsuario/{idUsuario}")
     ResponseEntity<String> deletarUsuario(@PathVariable(value = "idUsuario") String idUsuario);
 
     @PutMapping(value = "/editarUsuario/{idUsuario}")
-    ResponseEntity<UsuarioResponse> editarUsuario(@RequestBody UsuarioRequest request, @PathVariable(value = "idUsuario") String idUsuario);
+    ResponseEntity<UsuarioResponse> editarUsuario(@RequestBody UsuarioResponse request, @PathVariable(value = "idUsuario") String idUsuario);
 }
