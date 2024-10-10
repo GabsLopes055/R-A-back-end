@@ -84,26 +84,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResponse editarUsuario(String idUsuario, UsuarioResponse usuarioRequest) {
 
-        var editarUsuario = repository.findById(idUsuario);
+        Optional<UsuarioEntity> procurarUsuario = Optional.ofNullable(repository.findById(idUsuario)).orElseThrow(
+                () -> new EntityNaoEncontrada("Usuário não encontrado"));
 
-        if (editarUsuario.isEmpty()) {
-            throw new EntityNaoEncontrada("Usuario não encontrado");
-        }
+        Optional<UsuarioEntity> procurarUsuarioJaSalvo = Optional.ofNullable(repository.findByEmail(usuarioRequest.getEmail())).orElseThrow(
+                () -> new EmailJaCadastradoService("Email: " + usuarioRequest.getEmail() + " já está cadastrado"));
 
-        Optional<UsuarioEntity> procurarUsuarioJaSalvo = repository.findByEmail(usuarioRequest.getEmail());
+        UsuarioEntity editarUsuario = procurarUsuario.get();
 
-        if (procurarUsuarioJaSalvo.isPresent()) {
-            throw new EmailJaCadastradoService("Email: " + usuarioRequest.getEmail() + " já esta cadastrado");
-        }
+        editarUsuario.setNomeCompleto(usuarioRequest.getNomeCompleto());
+        editarUsuario.setEmail(usuarioRequest.getEmail());
+        editarUsuario.setRole(usuarioRequest.getPermissao());
+        editarUsuario.setStatus(usuarioRequest.getStatusUsuario());
 
-        editarUsuario.get().setNomeCompleto(usuarioRequest.getNomeCompleto());
-        editarUsuario.get().setEmail(usuarioRequest.getEmail());
-        editarUsuario.get().setRole(usuarioRequest.getPermissao());
-        editarUsuario.get().setStatus(usuarioRequest.getStatusUsuario());
+        repository.save(editarUsuario);
 
-        repository.save(editarUsuario.get());
-
-        return UsuarioResponse.toEntity(editarUsuario.get());
+        return UsuarioResponse.toEntity(editarUsuario);
     }
 
     @Override

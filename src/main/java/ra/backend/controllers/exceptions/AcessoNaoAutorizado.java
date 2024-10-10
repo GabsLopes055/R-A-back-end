@@ -14,19 +14,19 @@ import java.time.Instant;
 @ControllerAdvice
 public class AcessoNaoAutorizado extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(EmailJaCadastradoService.class)
-    public ResponseEntity<ExcecaoExemplo> usuarioCadastradoException(HttpServletRequest request) {
-
-        ExcecaoExemplo excecaoExemplo = new ExcecaoExemplo();
-
-        excecaoExemplo.setCaminho(request.getRequestURI());
-        excecaoExemplo.setMensagem("Acesso não autorizado");
-        excecaoExemplo.setError("Token não autorizado a realizar esta operação");
-        excecaoExemplo.setStatus(HttpStatus.UNAUTHORIZED.value());
-        excecaoExemplo.setMomentoDaExcecao(Instant.now());
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(excecaoExemplo);
-
-    }
+//    @ExceptionHandler(EmailJaCadastradoService.class)
+//    public ResponseEntity<ExcecaoExemplo> usuarioCadastradoException(HttpServletRequest request) {
+//
+//        ExcecaoExemplo excecaoExemplo = new ExcecaoExemplo();
+//
+//        excecaoExemplo.setCaminho(request.getRequestURI());
+//        excecaoExemplo.setMensagem("Acesso não autorizado");
+//        excecaoExemplo.setError("Token não autorizado a realizar esta operação");
+//        excecaoExemplo.setStatus(HttpStatus.UNAUTHORIZED.value());
+//        excecaoExemplo.setMomentoDaExcecao(Instant.now());
+//
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(excecaoExemplo);
+//
+//    }
 
 }

@@ -21,7 +21,7 @@ public class EmailJaExisteCadastradoController extends ResponseEntityExceptionHa
 
         excecaoExemplo.setCaminho(request.getRequestURI());
         excecaoExemplo.setMensagem(exception.getMessage());
-        excecaoExemplo.setError("Erro ao cadastrar usuario");
+        excecaoExemplo.setError("Erro interno !");
         excecaoExemplo.setStatus(HttpStatus.BAD_REQUEST.value());
         excecaoExemplo.setMomentoDaExcecao(Instant.now());
 
