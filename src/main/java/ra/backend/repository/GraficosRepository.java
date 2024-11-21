@@ -10,13 +10,13 @@ import java.util.List;
 public interface GraficosRepository extends JpaRepository<VendaEntity, String> {
 
     @Query(nativeQuery = true, value = """
-                SELECT
-                    EXTRACT(YEAR FROM data_venda) AS ano,
-                    EXTRACT(MONTH FROM data_venda) AS mes,
-                    COUNT(*) AS quantidadeVendas
-                FROM tbl_vendas
-                GROUP BY 1, 2
-                ORDER BY 1 DESC, 2 DESC
+            SELECT
+            	EXTRACT(YEAR FROM data_venda) AS ANO,
+            	EXTRACT(MONTH FROM data_venda) AS MES,
+            	SUM(total_venda) AS total_venda
+            FROM tbl_vendas
+            GROUP BY 1, 2
+            ORDER BY 1 DESC, 2 DESC;
             """)
-        List<Object[]> buscarDadosGrafico();
+    List<Object[]> buscarDadosGrafico();
 }
